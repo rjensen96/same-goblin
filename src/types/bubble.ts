@@ -16,12 +16,12 @@ export interface BubbleTarget {
   y: number;
   requiredColor: string;
 }
-export function getBubbles(): Bubble[][] {
+export function getBubbles(numRows: number, numCols: number): Bubble[][] {
   const allBubblles: Bubble[][] = [];
 
-  for (let x = 0; x < 16; x++) {
+  for (let x = 0; x < numCols; x++) {
     const bubbles: Bubble[] = [];
-    for (let y = 0; y < 9; y++) {
+    for (let y = 0; y < numRows; y++) {
       bubbles.push({ color: getColor(), key: y, hovered: false });
     }
     allBubblles.push(bubbles);

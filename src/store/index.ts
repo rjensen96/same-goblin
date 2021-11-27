@@ -6,8 +6,10 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    bubbles: getBubbles(),
-    bubbleReserves: getBubbles(),
+    numRows: 9,
+    numCols: 16,
+    bubbles: getBubbles(9, 16),
+    bubbleReserves: getBubbles(9, 16),
     randomKey: true,
     numHovered: 0,
     score: 0,
@@ -58,10 +60,14 @@ export default new Vuex.Store({
       state.numHovered = 0;
     },
     resetGameState(state) {
-      state.bubbles = getBubbles();
-      state.bubbleReserves = getBubbles();
+      state.bubbles = getBubbles(state.numRows, state.numCols);
+      state.bubbleReserves = getBubbles(state.numRows, state.numCols);
       state.score = 0;
       state.numHovered = 0;
+    },
+    setRowsCols(state, payload) {
+      state.numRows = payload.numRows;
+      state.numCols = payload.numCols;
     },
   },
   actions: {
@@ -124,6 +130,14 @@ export default new Vuex.Store({
       commit("unhoverAll");
       commit("resetGameState");
       commit("toggleRandomKey"); // to rerender board
+    },
+    startNewGame({ commit }, payload) {
+      commit("setRowsCols", {
+        numRows: payload.numRows,
+        numCols: payload.numCols,
+      });
+      commit("resetGameState");
+      commit("toggleRandomKey");
     },
   },
   modules: {},

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapper">
     <div id="game-grid" @mouseout="unhoverAllBubbles()">
       <div
         class="bubble-stack"
@@ -61,19 +61,24 @@ export default class GameGrid extends Vue {
 </script>
 
 <style>
+.wrapper {
+  margin: auto;
+  width: fit-content;
+}
+
 #game-grid {
-  width: 800px;
-  height: 450px;
+  width: fit-content;
   margin: auto;
   background-color: rgba(0, 0, 0, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  display: grid;
-
-  grid-template-columns: repeat(16, 1fr);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  display: flex;
+  flex-basis: min-content;
 }
 
 .bubble-stack {
   display: flex;
+  width: 46px;
   flex-wrap: wrap-reverse;
   align-content: flex-start;
   justify-content: space-evenly;
@@ -94,7 +99,6 @@ img {
   padding-top: 20px;
   align-items: center;
   justify-content: space-between;
-  width: 800px;
   text-align: left;
 }
 </style>

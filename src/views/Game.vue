@@ -1,6 +1,6 @@
 <template>
   <div ud="game">
-    <h1>Same Gnome</h1>
+    <!-- <h1>Same Goblin</h1> -->
     <GameGrid :key="this.$store.state.randomKey" />
   </div>
 </template>

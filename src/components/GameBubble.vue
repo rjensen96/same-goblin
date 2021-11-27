@@ -47,9 +47,9 @@ export default class GameBubble extends GameBubbleProps {
 
 <style>
 .bubble {
-  height: 42px;
-  width: 42px;
-  margin: 4px 0px;
+  height: 40px;
+  width: 40px;
+  margin: 3px 0px;
   display: flex;
   justify-content: center;
   color: white;
@@ -64,22 +64,22 @@ export default class GameBubble extends GameBubbleProps {
 
 .red {
   background-color: #eb026f;
-  opacity: 50%;
+  opacity: 75%;
 }
 
 .green {
   background-color: #43e099;
-  opacity: 50%;
+  opacity: 75%;
 }
 
 .blue {
   background-color: #1b4dd6;
-  opacity: 50%;
+  opacity: 75%;
 }
 
 .yellow {
   background-color: #f5ee1f;
-  opacity: 50%;
+  opacity: 75%;
 }
 
 .hovered {

@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
+      <h1>Same Goblin</h1>
+      <router-link to="/settings">Settings</router-link> |
       <router-link to="/game">Game</router-link>
     </div>
     <router-view />
@@ -19,11 +19,11 @@
 }
 
 body {
-  background-color: rgba(0, 0, 0, 0.94);
+  background-color: rgba(0, 0, 0, 0.88);
 }
 
 #nav {
-  padding: 30px;
+  padding: 10px 0px 30px;
 }
 
 #nav a {
