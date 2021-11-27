@@ -25,7 +25,7 @@ const GameBubbleProps = Vue.extend({
 export default class GameBubble extends GameBubbleProps {
   clickBubble(): void {
     // head into store and remove bubble at this index.
-    this.$store.state.bubbles[this.stackIndex].splice(this.bubbleIndex, 1);
+    this.$store.dispatch("handleBubbleClick");
   }
 
   hoverBubble(): void {
@@ -63,23 +63,23 @@ export default class GameBubble extends GameBubbleProps {
 }
 
 .red {
-  background-color: #ff0000;
-  opacity: 25%;
+  background-color: #eb026f;
+  opacity: 50%;
 }
 
 .green {
-  background-color: #00ff00;
-  opacity: 25%;
+  background-color: #43e099;
+  opacity: 50%;
 }
 
 .blue {
-  background-color: #0000ff;
-  opacity: 25%;
+  background-color: #1b4dd6;
+  opacity: 50%;
 }
 
 .yellow {
-  background-color: #ffff00;
-  opacity: 25%;
+  background-color: #f5ee1f;
+  opacity: 50%;
 }
 
 .hovered {

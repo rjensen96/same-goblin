@@ -26,7 +26,6 @@ export function getBubbles(): Bubble[][] {
     }
     allBubblles.push(bubbles);
   }
-  console.log("allbubs:", allBubblles);
   return allBubblles;
 }
 

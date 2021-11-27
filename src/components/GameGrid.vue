@@ -1,19 +1,29 @@
 <template>
-  <div id="game-grid" @mouseout="unhoverAllBubbles()">
-    <div
-      class="bubble-stack"
-      v-for="(bubbleStack, stackIndex) in this.$store.state.bubbles"
-      :key="stackIndex"
-    >
-      <GameBubble
-        v-for="(bubble, bubbleIndex) in bubbleStack"
-        :key="getKey(bubbleIndex, bubble)"
-        v-on:click="clickBubble(stackIndex, bubbleIndex)"
-        v-bind:bubbleIndex="bubbleIndex"
-        v-bind:stackIndex="stackIndex"
-        v-bind:bubble="bubble"
-        v-bind:className="getClassName(bubble)"
-      />
+  <div>
+    <div id="game-grid" @mouseout="unhoverAllBubbles()">
+      <div
+        class="bubble-stack"
+        v-for="(bubbleStack, stackIndex) in this.$store.state.bubbles"
+        :key="stackIndex"
+      >
+        <GameBubble
+          v-for="(bubble, bubbleIndex) in bubbleStack"
+          :key="getKey(bubbleIndex, bubble)"
+          v-on:click="clickBubble(stackIndex, bubbleIndex)"
+          v-bind:bubbleIndex="bubbleIndex"
+          v-bind:stackIndex="stackIndex"
+          v-bind:bubble="bubble"
+          v-bind:className="getClassName(bubble)"
+        />
+      </div>
+    </div>
+
+    <div id="scorebar">
+      <div>
+        <h2 class="score">Score: {{ this.$store.state.score }}</h2>
+        <h2 class="score">Best: {{ this.$store.state.hiScore }}</h2>
+      </div>
+      <img v-on:click="resetGame()" src="@/assets/replay.svg" height="40px" />
     </div>
   </div>
 </template>
@@ -43,6 +53,10 @@ export default class GameGrid extends Vue {
   unhoverAllBubbles(): void {
     this.$store.dispatch("unhoverAllBubbles");
   }
+
+  resetGame(): void {
+    this.$store.dispatch("resetGame");
+  }
 }
 </script>
 
@@ -51,7 +65,8 @@ export default class GameGrid extends Vue {
   width: 800px;
   height: 450px;
   margin: auto;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   display: grid;
 
   grid-template-columns: repeat(16, 1fr);
@@ -62,5 +77,24 @@ export default class GameGrid extends Vue {
   flex-wrap: wrap-reverse;
   align-content: flex-start;
   justify-content: space-evenly;
+}
+
+img {
+  cursor: pointer;
+  padding: 0px 20px;
+}
+
+.score {
+  padding: 0px 20px;
+}
+
+#scorebar {
+  display: flex;
+  margin: auto;
+  padding-top: 20px;
+  align-items: center;
+  justify-content: space-between;
+  width: 800px;
+  text-align: left;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="game">
+  <div ud="game">
     <h1>Same Gnome</h1>
     <GameGrid :key="this.$store.state.randomKey" />
   </div>
@@ -14,13 +14,5 @@ import GameGrid from "@/components/GameGrid.vue";
     GameGrid,
   },
 })
-export default class Game extends Vue {
-  getKey(): string {
-    return this.$store.state.randomKey.toString();
-  }
-  //   unhoverAll(): void {
-  //     console.log("attemtping unoveralhl");
-  //     this.$store.commit("unhoverAll");
-  //   }
-}
+export default class Game extends Vue {}
 </script>
