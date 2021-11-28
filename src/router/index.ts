@@ -8,6 +8,11 @@ Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
+    path: "/",
+    name: "Settings",
+    component: Settings,
+  },
+  {
     path: "/about",
     name: "About",
     component: About,

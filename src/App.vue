@@ -19,7 +19,7 @@
 }
 
 body {
-  background-color: rgba(0, 0, 0, 0.88);
+  background-color: rgb(35, 35, 35);
 }
 
 #nav {

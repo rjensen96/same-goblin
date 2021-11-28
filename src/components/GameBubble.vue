@@ -3,9 +3,7 @@
     v-bind:class="[className]"
     v-on:click="clickBubble()"
     v-on:mouseover="hoverBubble()"
-  >
-    <!-- <p>{{ this.bubble.key }}</p> -->
-  </div>
+  ></div>
 </template>
 
 <script lang="ts">
@@ -62,27 +60,28 @@ export default class GameBubble extends GameBubbleProps {
   margin: auto 0px;
 }
 
+/* TODO: bug! opacity goes to 1% in dist folder! */
 .red {
   background-color: #eb026f;
-  opacity: 75%;
+  opacity: 0.75;
 }
 
 .green {
   background-color: #43e099;
-  opacity: 75%;
+  opacity: 0.75;
 }
 
 .blue {
   background-color: #1b4dd6;
-  opacity: 75%;
+  opacity: 0.75;
 }
 
 .yellow {
   background-color: #f5ee1f;
-  opacity: 75%;
+  opacity: 0.75;
 }
 
 .hovered {
-  opacity: 100%;
+  opacity: 1;
 }
 </style>

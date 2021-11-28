@@ -69,7 +69,7 @@ export default class GameGrid extends Vue {
 #game-grid {
   width: fit-content;
   margin: auto;
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: rgb(15, 15, 15);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 5px;
   display: flex;
