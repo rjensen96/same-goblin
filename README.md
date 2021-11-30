@@ -2,6 +2,8 @@
 
 There was a game on some old version of Linux that I used to play called Same Gnome. It was like some ancient ancestor of Candy Crush. Anyway, I loved that game, so I wanted to re-implement something like it. Welcome to Same Goblin!
 
+Live version of the game here: https://rjensen96.github.io/samegoblin/#/
+
 ![image info](src/assets/same-goblin.gif)
 
 The old Same Gnome had some retro images of Jupiter, Earth, and the Moon. If you want those instead, maybe grab those and do a pull request.
