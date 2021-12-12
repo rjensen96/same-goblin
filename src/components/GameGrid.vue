@@ -20,7 +20,12 @@
 
     <div id="scorebar">
       <div>
-        <h2 class="score">Score: {{ this.$store.state.score }}</h2>
+        <h2 class="score">
+          Score: {{ this.$store.state.score }}
+          <span v-if="getPotentialScore() > 0" class="potential"
+            >+ {{ getPotentialScore() }}</span
+          >
+        </h2>
         <h2 class="score">Best: {{ this.$store.state.hiScore }}</h2>
       </div>
       <img v-on:click="resetGame()" src="@/assets/replay.svg" height="40px" />
@@ -48,6 +53,19 @@ export default class GameGrid extends Vue {
     let str = bubbleIndex.toString();
     str += bubble.hovered ? "hov" : "reg";
     return str;
+  }
+
+  getPotentialScore(): number {
+    let potentialScore = 0;
+    this.$store.state.bubbles.forEach((bubbleStack: Bubble[]) => {
+      bubbleStack.forEach((bubble: Bubble) => {
+        if (bubble.hovered) {
+          potentialScore++;
+        }
+      });
+    });
+
+    return potentialScore === 0 ? 0 : Math.pow(potentialScore - 1, 2);
   }
 
   unhoverAllBubbles(): void {
@@ -91,6 +109,10 @@ img {
 
 .score {
   padding: 0px 20px;
+}
+
+.potential {
+  color: #7e7e7e;
 }
 
 #scorebar {
