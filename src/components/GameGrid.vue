@@ -3,79 +3,107 @@
     <div id="game-grid" @mouseout="unhoverAllBubbles()">
       <div
         class="bubble-stack"
-        v-for="(bubbleStack, stackIndex) in this.$store.state.bubbles"
+        v-for="(bubbleStack, stackIndex) in $store.state.bubbles"
         :key="stackIndex"
       >
         <GameBubble
           v-for="(bubble, bubbleIndex) in bubbleStack"
           :key="getKey(bubbleIndex, bubble)"
-          v-on:click="clickBubble(stackIndex, bubbleIndex)"
-          v-bind:bubbleIndex="bubbleIndex"
-          v-bind:stackIndex="stackIndex"
-          v-bind:bubble="bubble"
-          v-bind:className="getClassName(bubble)"
+          :bubbleIndex="bubbleIndex"
+          :stackIndex="stackIndex"
+          :bubble="bubble"
+          :bombMode="bombMode"
+          :className="getClassName(bubble)"
         />
+      </div>
+    </div>
+
+    <div id="bombrack">
+      <div
+        v-for="(bomb, index) in $store.state.bombs"
+        :key="index"
+        @click="clickBomb(index)"
+      >
+        <Bomb :active="index === activeBombIndex" />
       </div>
     </div>
 
     <div id="scorebar">
       <div>
         <h2 class="score">
-          Score: {{ this.$store.state.score }}
+          Score: {{ $store.state.score }}
           <span v-if="getPotentialScore() > 0" class="potential"
             >+ {{ getPotentialScore() }}</span
           >
         </h2>
-        <h2 class="score">Best: {{ this.$store.state.hiScore }}</h2>
+        <h2 class="score">Best: {{ $store.state.hiScore }}</h2>
       </div>
       <img v-on:click="resetGame()" src="@/assets/replay.svg" height="40px" />
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import GameBubble from "@/components/GameBubble.vue";
+<script lang="js">
 import { Bubble } from "@/types/bubble";
+import GameBubble from "@/components/GameBubble.vue";
 
-@Component({ components: { GameBubble } })
-export default class GameGrid extends Vue {
-  bubbles = this.$store.state.bubbles;
+import Bomb from "@/components/Bomb.vue";
+export default {
+  components: {
+    GameBubble,
+    Bomb,
+  },
 
-  getClassName(bubble: Bubble): string {
-    let className = "bubble ";
-    className += bubble.color;
-    className += bubble.hovered ? " hovered" : "";
-    return className;
-  }
+  computed: {
+    bombMode() {
+      return this.activeBombIndex > -1
+    },
+    activeBombIndex() {
+      return this.$store.state.activeBombIndex
+    }
+  },
 
-  getKey(bubbleIndex: number, bubble: Bubble): string {
-    let str = bubbleIndex.toString();
-    str += bubble.hovered ? "hov" : "reg";
-    return str;
-  }
+  methods: {
+    getClassName(bubble) {
+      let className = "bubble ";
+      className += bubble.color;
+      className += bubble.hovered ? " hovered" : "";
+      return className;
+    },
 
-  getPotentialScore(): number {
-    let potentialScore = 0;
-    this.$store.state.bubbles.forEach((bubbleStack: Bubble[]) => {
-      bubbleStack.forEach((bubble: Bubble) => {
-        if (bubble.hovered) {
-          potentialScore++;
-        }
+    getKey(bubbleIndex, bubble) {
+      let str = bubbleIndex.toString();
+      str += bubble.hovered ? "hov" : "reg";
+      return str;
+    },
+
+    getPotentialScore() {
+      let potentialScore = 0;
+      this.$store.state.bubbles.forEach((bubbleStack) => {
+        bubbleStack.forEach((bubble) => {
+          if (bubble.hovered) {
+            potentialScore++;
+          }
+        });
       });
-    });
 
-    return potentialScore === 0 ? 0 : Math.pow(potentialScore - 1, 2);
-  }
-
-  unhoverAllBubbles(): void {
-    this.$store.dispatch("unhoverAllBubbles");
-  }
-
-  resetGame(): void {
-    this.$store.dispatch("resetGame");
-  }
-}
+      return potentialScore === 0 ? 0 : Math.pow(potentialScore - 1, 2);
+    },
+    unhoverAllBubbles() {
+      this.$store.dispatch("unhoverAllBubbles");
+    },
+    resetGame() {
+      this.$store.dispatch("resetGame");
+    },
+    clickBomb(index) {
+      if(this.activeBombIndex === index) {
+        this.$store.dispatch("deactivateBombs");
+      } else {
+        this.$store.dispatch("activateBomb", index)
+      }
+    },
+  },
+};
 </script>
 
 <style>
@@ -118,9 +146,20 @@ img {
 #scorebar {
   display: flex;
   margin: auto;
-  padding-top: 20px;
   align-items: center;
   justify-content: space-between;
   text-align: left;
+}
+
+#bombrack {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  width: 80%;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  margin: 16px auto;
+  user-select: none;
 }
 </style>

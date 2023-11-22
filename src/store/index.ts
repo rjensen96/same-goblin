@@ -14,6 +14,8 @@ export default new Vuex.Store({
     numHovered: 0,
     score: 0,
     hiScore: 0,
+    bombs: 3,
+    activeBombIndex: -1,
   },
   mutations: {
     resetNumHovered(state) {
@@ -69,6 +71,13 @@ export default new Vuex.Store({
       state.numRows = payload.numRows;
       state.numCols = payload.numCols;
     },
+    setActiveBomb(state, index) {
+      state.activeBombIndex = index;
+    },
+    useBomb(state) {
+      state.bombs--;
+      state.activeBombIndex = -1;
+    },
   },
   actions: {
     hoverBubbleRecursive({ commit, dispatch }, bubbleTarget: BubbleTarget) {
@@ -115,7 +124,16 @@ export default new Vuex.Store({
         commit("incrementScore");
         commit("removeHoveredBubbles");
         commit("toggleRandomKey");
+      } else if (this.state.activeBombIndex > -1) {
+        commit("removeHoveredBubbles");
+        commit("useBomb");
+        commit("toggleRandomKey");
       }
+    },
+    hoverSingleBubble({ commit }, bubbleTarget: BubbleTarget) {
+      commit("unhoverAll");
+      commit("setBubbleHover", bubbleTarget);
+      commit("toggleRandomKey");
     },
     hoverBubblesDriver({ commit, dispatch }, bubbleTarget: BubbleTarget) {
       commit("unhoverAll");
@@ -125,6 +143,16 @@ export default new Vuex.Store({
     unhoverAllBubbles({ commit }) {
       commit("unhoverAll");
       commit("toggleRandomKey"); // to rerender board
+    },
+    deactivateBombs({ commit }) {
+      commit("unhoverAll");
+      commit("setActiveBomb", -1);
+      commit("toggleRandomKey");
+    },
+    activateBomb({ commit }, bombIndex: number) {
+      commit("unhoverAll");
+      commit("setActiveBomb", bombIndex);
+      commit("toggleRandomKey");
     },
     resetGame({ commit }) {
       commit("unhoverAll");

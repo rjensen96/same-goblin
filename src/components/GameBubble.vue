@@ -1,8 +1,8 @@
 <template>
   <div
-    v-bind:class="[className]"
-    v-on:click="clickBubble()"
-    v-on:mouseover="hoverBubble()"
+    :class="[className]"
+    @click="clickBubble()"
+    @mouseover="hoverBubble()"
   ></div>
 </template>
 
@@ -16,6 +16,7 @@ const GameBubbleProps = Vue.extend({
     bubbleIndex: Number,
     bubble: { type: Object as () => Bubble },
     className: String,
+    bombMode: Boolean,
   },
 });
 
@@ -33,7 +34,11 @@ export default class GameBubble extends GameBubbleProps {
         y: this.bubbleIndex,
         requiredColor: this.bubble.color,
       };
-      this.$store.dispatch("hoverBubblesDriver", bubbleTarget);
+      if (this.bombMode) {
+        this.$store.dispatch("hoverSingleBubble", bubbleTarget);
+      } else {
+        this.$store.dispatch("hoverBubblesDriver", bubbleTarget);
+      }
     }
   }
 

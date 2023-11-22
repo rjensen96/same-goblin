@@ -1,18 +1,15 @@
 <template>
   <div ud="game">
-    <!-- <h1>Same Goblin</h1> -->
-    <GameGrid :key="this.$store.state.randomKey" />
+    <GameGrid :key="$store.state.randomKey" />
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+<script>
 import GameGrid from "@/components/GameGrid.vue";
 
-@Component({
+export default {
   components: {
     GameGrid,
   },
-})
-export default class Game extends Vue {}
+};
 </script>
