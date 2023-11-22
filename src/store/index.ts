@@ -66,6 +66,8 @@ export default new Vuex.Store({
       state.bubbleReserves = getBubbles(state.numRows, state.numCols);
       state.score = 0;
       state.numHovered = 0;
+      state.bombs = 3;
+      state.activeBombIndex = -1;
     },
     setRowsCols(state, payload) {
       state.numRows = payload.numRows;
